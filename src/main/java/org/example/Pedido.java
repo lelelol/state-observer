@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.Observable;
-import java.util.Observer;
 
 public class Pedido extends Observable {
     private String item;
@@ -14,25 +13,23 @@ public class Pedido extends Observable {
 
     public void setEstado(PedidoEstado estado) {
         this.estado = estado;
+        setChanged();
+        notifyObservers(estado.getEstado());
     }
+
     public String getEstado() {
         return estado.getEstado();
     }
 
-    public boolean analisar(){
-        setChanged();
-        notifyObservers();
+    public boolean analisar() {
         return estado.analisar(this);
     }
-    public boolean perparar(){
-        setChanged();
-        notifyObservers();
+
+    public boolean perparar() {
         return estado.perparar(this);
     }
-    public boolean entregar(){
-        setChanged();
-        notifyObservers();
+
+    public boolean entregar() {
         return estado.entregar(this);
     }
-
 }

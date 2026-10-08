@@ -3,15 +3,26 @@ package org.example;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Cliente implements Observer  {
-    public Pedido pedido;
+public class Cliente implements Observer {
+    private String ultimaNotificacao;
+    private int totalNotificacoes;
 
-    public String getEstado(){
-        return pedido.getEstado();
+    public Cliente(Pedido pedido) {
+        pedido.addObserver(this);
+    }
+
+    public String getUltimaNotificacao() {
+        return ultimaNotificacao;
+    }
+
+    public int getTotalNotificacoes() {
+        return totalNotificacoes;
     }
 
     @Override
-    public void update(Observable pedido, Object arg) {
-        System.out.println(this.getEstado());
+    public void update(Observable pedido, Object estado) {
+        this.ultimaNotificacao = (String) estado;
+        this.totalNotificacoes++;
+        System.out.println("Pedido atualizado: " + estado);
     }
 }
